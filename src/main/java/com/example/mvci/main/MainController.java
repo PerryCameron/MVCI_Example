@@ -38,8 +38,7 @@ public class MainController
 
     }
 
-    // you made some mistakes. a Controller only takes the main controller as a parameter, and it always should.
-
+    // All controllers are built here, and thier views in the mainView.
     private void openPartMVCI() {
         partController = new PartController(this);
 
@@ -50,7 +49,8 @@ public class MainController
 
     private void openNoteMVCI() {
         noteController = new NoteController(this);
-
+        // if you need to inject a reference or an Action Enum the mvci structure is built and this is the place to do it.
+        // ie.. noteController.SetVariable(someVariable);
         interactor.showNoteContent(
                 noteController.getView()
         );
