@@ -38,11 +38,10 @@ public class MainController
 
     }
 
+    // you made some mistakes. a Controller only takes the main controller as a parameter, and it always should.
 
     private void openPartMVCI() {
-        partController = new PartController(
-                this::addPartToWorkNote
-        );
+        partController = new PartController(this);
 
         interactor.showPartContent(
                 partController.getView()
@@ -50,14 +49,14 @@ public class MainController
     }
 
     private void openNoteMVCI() {
-        noteController = new NoteController();
+        noteController = new NoteController(this);
 
         interactor.showNoteContent(
                 noteController.getView()
         );
     }
 
-    private void addPartToWorkNote(Part part) {
+    public void addPartToWorkNote(Part part) {
         noteController.addPartToWorkNote(part);
     }
 }

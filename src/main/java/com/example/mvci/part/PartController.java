@@ -1,17 +1,15 @@
 package com.example.mvci.part;
 
-import com.example.domain.Part;
 import com.example.mvci.framework.ControllerBase;
-
-import java.util.function.Consumer;
+import com.example.mvci.main.MainController;
 
 public class PartController
         extends ControllerBase<PartModel, PartInteractor, PartView, PartMessage> {
 
-    private final Consumer<Part> addToWorkNoteRequest;
+    private final MainController mainController;
 
-    public PartController(Consumer<Part> addToWorkNoteRequest) {
-        this.addToWorkNoteRequest = addToWorkNoteRequest;
+    public PartController(MainController mainController) {
+        this.mainController = mainController;
         initializeMVCI();
     }
 
@@ -38,7 +36,7 @@ public class PartController
 
             case ADD_TO_WORK_NOTE ->
                     interactor.getSelectedPart()
-                            .ifPresent(addToWorkNoteRequest);
+                            .ifPresent(mainController::addPartToWorkNote);
         }
     }
 }

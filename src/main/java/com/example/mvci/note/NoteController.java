@@ -2,11 +2,15 @@ package com.example.mvci.note;
 
 import com.example.domain.Part;
 import com.example.mvci.framework.ControllerBase;
+import com.example.mvci.main.MainController;
 
 public class NoteController
         extends ControllerBase<NoteModel, NoteInteractor, NoteView, NoteMessage> {
 
-    public NoteController() {
+    private final MainController mainController;
+
+    public NoteController(MainController mainController) {
+        this.mainController = mainController;
         initializeMVCI();
     }
 
