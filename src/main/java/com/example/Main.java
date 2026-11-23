@@ -22,9 +22,18 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        primaryStage.setWidth(400);
-        primaryStage.setHeight(200);
-        primaryStage.setScene(new Scene(new MainController().getView()));
+
+        primaryStage.setWidth(900);
+        primaryStage.setHeight(600);
+
+        Scene scene = new Scene(new MainController().getView());
+
+        scene.getStylesheets().add(
+                getClass().getResource("/css/application.css").toExternalForm()
+        );
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("MVCI Service Example");
         primaryStage.show();
     }
 

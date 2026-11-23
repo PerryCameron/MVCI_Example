@@ -1,12 +1,16 @@
 package com.example.mvci.main;
 
 import com.example.mvci.framework.ControllerBase;
+import com.example.mvci.part.PartController;
 
 public class MainController extends ControllerBase<MainModel, MainInteractor, MainView, MainMessage> {
 
     public MainController() {
         initializeMVCI();
+        openPartMVCI();
     }
+
+    private PartController partController;
 
     @Override
     protected MainModel createModel() {
@@ -26,5 +30,11 @@ public class MainController extends ControllerBase<MainModel, MainInteractor, Ma
     @Override
     public void action(MainMessage actionEnum) {
 
+    }
+
+    // we have not called this
+    private void openPartMVCI() {
+        partController = new PartController();
+        interactor.showContent(partController.getView());
     }
 }
