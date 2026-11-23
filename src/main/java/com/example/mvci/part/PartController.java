@@ -1,11 +1,17 @@
 package com.example.mvci.part;
 
+import com.example.domain.Part;
 import com.example.mvci.framework.ControllerBase;
+
+import java.util.function.Consumer;
 
 public class PartController
         extends ControllerBase<PartModel, PartInteractor, PartView, PartMessage> {
 
-    public PartController() {
+    private final Consumer<Part> addToWorkNoteRequest;
+
+    public PartController(Consumer<Part> addToWorkNoteRequest) {
+        this.addToWorkNoteRequest = addToWorkNoteRequest;
         initializeMVCI();
     }
 
@@ -26,9 +32,13 @@ public class PartController
 
     @Override
     public void action(PartMessage actionEnum) {
-
         switch (actionEnum) {
-            case ADD_PART -> interactor.addPart();
+            case ADD_PART ->
+                    interactor.addPart();
+
+            case ADD_TO_WORK_NOTE ->
+                    interactor.getSelectedPart()
+                            .ifPresent(addToWorkNoteRequest);
         }
     }
 }

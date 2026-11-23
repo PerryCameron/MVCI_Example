@@ -1,5 +1,6 @@
 package com.example.mvci.note;
 
+import com.example.domain.Part;
 import com.example.mvci.framework.ControllerBase;
 
 public class NoteController
@@ -30,5 +31,9 @@ public class NoteController
         switch (actionEnum) {
             case CLEAR_NOTE -> interactor.clearNote();
         }
+    }
+
+    public void addPartToWorkNote(Part part) {
+        interactor.addPart(part);
     }
 }

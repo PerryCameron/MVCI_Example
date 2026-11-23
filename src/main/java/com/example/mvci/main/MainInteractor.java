@@ -1,7 +1,6 @@
 package com.example.mvci.main;
 
 import com.example.mvci.framework.InteractorBase;
-
 import javafx.scene.layout.Region;
 
 public class MainInteractor extends InteractorBase<MainModel> {
@@ -10,10 +9,17 @@ public class MainInteractor extends InteractorBase<MainModel> {
         super(model);
     }
 
-    public void showContent(Region region) {
-        model.contentProperty().set(region);
+    public void showPartContent(Region region) {
+        model.partContentProperty().set(region);
+
         model.messageProperty().set(MainMessage.NO_REQUEST);
-        model.messageProperty().set(MainMessage.SHOW_CONTENT);
+        model.messageProperty().set(MainMessage.SHOW_PARTS);
+    }
+
+    public void showNoteContent(Region region) {
+        model.noteContentProperty().set(region);
+
+        model.messageProperty().set(MainMessage.NO_REQUEST);
+        model.messageProperty().set(MainMessage.SHOW_NOTE);
     }
 }
-

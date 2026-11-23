@@ -1,16 +1,22 @@
 package com.example.mvci.main;
 
+import com.example.domain.Part;
 import com.example.mvci.framework.ControllerBase;
+import com.example.mvci.note.NoteController;
 import com.example.mvci.part.PartController;
 
-public class MainController extends ControllerBase<MainModel, MainInteractor, MainView, MainMessage> {
+public class MainController
+        extends ControllerBase<MainModel, MainInteractor, MainView, MainMessage> {
+
+    private PartController partController;
+    private NoteController noteController;
 
     public MainController() {
         initializeMVCI();
+        openNoteMVCI();
         openPartMVCI();
-    }
 
-    private PartController partController;
+    }
 
     @Override
     protected MainModel createModel() {
@@ -32,9 +38,26 @@ public class MainController extends ControllerBase<MainModel, MainInteractor, Ma
 
     }
 
-    // we have not called this
+
     private void openPartMVCI() {
-        partController = new PartController();
-        interactor.showContent(partController.getView());
+        partController = new PartController(
+                this::addPartToWorkNote
+        );
+
+        interactor.showPartContent(
+                partController.getView()
+        );
+    }
+
+    private void openNoteMVCI() {
+        noteController = new NoteController();
+
+        interactor.showNoteContent(
+                noteController.getView()
+        );
+    }
+
+    private void addPartToWorkNote(Part part) {
+        noteController.addPartToWorkNote(part);
     }
 }

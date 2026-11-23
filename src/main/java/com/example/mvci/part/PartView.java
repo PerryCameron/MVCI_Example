@@ -1,5 +1,6 @@
 package com.example.mvci.part;
 
+import com.example.domain.Part;
 import com.example.mvci.framework.ViewBase;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -16,7 +17,7 @@ public class PartView
 
     private TextField partNumberField;
     private TextField descriptionField;
-    private ListView<String> partsList;
+    private ListView<Part> partsList;
 
     protected PartView(
             PartModel model,
@@ -32,7 +33,6 @@ public class PartView
 
     @Override
     public Region build() {
-        System.out.println("Building part view");
         Label heading = new Label("Parts");
         heading.getStyleClass().add("feature-title");
 
@@ -57,10 +57,36 @@ public class PartView
                 event -> action.accept(PartMessage.ADD_PART)
         );
 
-        Label availablePartsLabel = new Label("Available Parts");
-        availablePartsLabel.getStyleClass().add("section-label");
+        Label availablePartsLabel =
+                new Label("Available Parts");
+
+        availablePartsLabel
+                .getStyleClass()
+                .add("section-label");
 
         partsList = new ListView<>(model.getParts());
+
+        model.selectedPartProperty().bind(
+                partsList.getSelectionModel()
+                        .selectedItemProperty()
+        );
+
+        Button addToWorkNoteButton =
+                new Button("Add to Work Note");
+
+        addToWorkNoteButton
+                .getStyleClass()
+                .add("secondary-button");
+
+        addToWorkNoteButton.disableProperty().bind(
+                model.selectedPartProperty().isNull()
+        );
+
+        addToWorkNoteButton.setOnAction(
+                event -> action.accept(
+                        PartMessage.ADD_TO_WORK_NOTE
+                )
+        );
 
         VBox content = new VBox(
                 8,
@@ -71,7 +97,8 @@ public class PartView
                 descriptionField,
                 addPartButton,
                 availablePartsLabel,
-                partsList
+                partsList,
+                addToWorkNoteButton
         );
 
         content.setPadding(new Insets(20));

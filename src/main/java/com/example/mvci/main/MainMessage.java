@@ -2,5 +2,6 @@ package com.example.mvci.main;
 
 public enum MainMessage {
     NO_REQUEST,
-    SHOW_CONTENT
+    SHOW_PARTS,
+    SHOW_NOTE
 }

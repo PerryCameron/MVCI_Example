@@ -64,3 +64,8 @@
 .secondary-button:hover {
     -fx-background-color: #cbd5e1;
 }
+
+.main-content {
+    -fx-padding: 20px;
+    -fx-spacing: 16px;
+}
