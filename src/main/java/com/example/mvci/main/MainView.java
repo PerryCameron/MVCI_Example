@@ -19,10 +19,9 @@ public class MainView extends ViewBase<Region, MainModel, MainMessage> {
     @Override
     protected void viewListener() {
         model.messageProperty().addListener((obs, oldValue, newValue) -> {
-
+            // this is a general purpose listener to react if the interactor changes messageProperty (an ENUM) in the model.
             switch (newValue) {
                 case SHOW_PARTS, SHOW_NOTE -> updateContent();
-
                 case NO_REQUEST -> {
                 }
             }
@@ -32,55 +31,43 @@ public class MainView extends ViewBase<Region, MainModel, MainMessage> {
     @Override
     public Region build() {
         borderPane = new BorderPane();
-
         borderPane.getStyleClass().add("app-root");
         borderPane.setTop(buildHeader());
-
         updateContent();
-
         viewListener();
-
         return borderPane;
     }
 
     private void updateContent() {
         Region partContent = model.partContentProperty().get();
         Region noteContent = model.noteContentProperty().get();
-
         if (partContent == null && noteContent == null) {
             return;
         }
-
         HBox content = new HBox(16);
         content.getStyleClass().add("main-content");
         content.setAlignment(Pos.CENTER);
-
         if (partContent != null) {
             HBox.setHgrow(partContent, Priority.ALWAYS);
             partContent.setMaxWidth(Double.MAX_VALUE);
             content.getChildren().add(partContent);
         }
-
         if (noteContent != null) {
             HBox.setHgrow(noteContent, Priority.ALWAYS);
             noteContent.setMaxWidth(Double.MAX_VALUE);
             content.getChildren().add(noteContent);
         }
-
         borderPane.setCenter(content);
     }
 
     private Region buildHeader() {
         Label title = new Label("MVCI Service Example");
         title.getStyleClass().add("app-title");
-
         Label subtitle = new Label("Parts and Work Notes");
         subtitle.getStyleClass().add("app-subtitle");
-
         VBox header = new VBox(4, title, subtitle);
         header.getStyleClass().add("app-header");
         header.setPadding(new Insets(20, 24, 20, 24));
-
         return header;
     }
 }

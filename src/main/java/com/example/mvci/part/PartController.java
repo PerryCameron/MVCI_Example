@@ -3,8 +3,7 @@ package com.example.mvci.part;
 import com.example.mvci.framework.ControllerBase;
 import com.example.mvci.main.MainController;
 
-public class PartController
-        extends ControllerBase<PartModel, PartInteractor, PartView, PartMessage> {
+public class PartController extends ControllerBase<PartModel, PartInteractor, PartView, PartMessage> {
 
     private final MainController mainController;
 
@@ -31,12 +30,8 @@ public class PartController
     @Override
     public void action(PartMessage actionEnum) {
         switch (actionEnum) {
-            case ADD_PART ->
-                    interactor.addPart();
-
-            case ADD_TO_WORK_NOTE ->
-                    interactor.getSelectedPart()
-                            .ifPresent(mainController::addPartToWorkNote);
+            case ADD_PART -> interactor.addPart();
+            case ADD_TO_WORK_NOTE -> interactor.getSelectedPart().ifPresent(mainController::addPartToWorkNote);  // this is getting a ref
         }
     }
 }

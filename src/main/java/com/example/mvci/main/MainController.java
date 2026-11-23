@@ -15,7 +15,6 @@ public class MainController
         initializeMVCI();
         openNoteMVCI();
         openPartMVCI();
-
     }
 
     @Override
@@ -35,25 +34,20 @@ public class MainController
 
     @Override
     public void action(MainMessage actionEnum) {
-
+        // Normally in a controller these are heavily used.
     }
 
-    // All controllers are built here, and thier views in the mainView.
+    // All controllers are built here, and their views, are built in the mainView.
     private void openPartMVCI() {
         partController = new PartController(this);
-
-        interactor.showPartContent(
-                partController.getView()
-        );
+        interactor.showPartContent(partController.getView());
     }
 
     private void openNoteMVCI() {
         noteController = new NoteController(this);
-        // if you need to inject a reference or an Action Enum the mvci structure is built and this is the place to do it.
+        // if you need to inject a reference from another model or an Action Enum the mvci structure is built and this is the place to do it.
         // ie.. noteController.SetVariable(someVariable);
-        interactor.showNoteContent(
-                noteController.getView()
-        );
+        interactor.showNoteContent(noteController.getView());
     }
 
     public void addPartToWorkNote(Part part) {
